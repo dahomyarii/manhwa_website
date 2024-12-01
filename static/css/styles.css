@@ -1,0 +1,421 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fdfdfd;
+    color: #333;
+    line-height: 1.6;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Dark Mode */
+body.dark-mode {
+    background-color: #121212;
+    color: #f1f1f1;
+}
+
+.dark-mode-toggle {
+    width: 40px; /* Adjust width */
+    height: 40px; /* Adjust height */
+    position: fixed;
+    bottom: 20px; /* Position near the bottom */
+    right: 20px; /* Position near the right */
+    z-index: 100; /* Ensure it stays above other elements */
+    cursor: pointer;
+    opacity: 0.7; /* Slightly transparent */
+    transition: opacity 0.3s ease;
+}
+
+.dark-mode-toggle:hover {
+    opacity: 1; /* Fully visible on hover */
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0077cc;
+}
+
+/* Containers */
+.container {
+    width: 90%;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #f1f1f1;
+}
+
+body.dark-mode .sidebar {
+    background-color: #1e1e1e;
+}
+
+body.dark-mode .navbar {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
+
+body.dark-mode .navbar-links a {
+    color: #ccc;
+}
+
+body.dark-mode .navbar-links a:hover {
+    color: #0077cc;
+}
+
+body.dark-mode .search-form input {
+    border-color: #444;
+    background-color: #222;
+    color: #f1f1f1;
+}
+
+body.dark-mode .search-form button {
+    background-color: #005fa3;
+}
+
+body.dark-mode footer {
+    background-color: #222;
+    color: #ccc;
+}
+
+body.dark-mode .dropdown-menu {
+    background-color: #333;
+    border-color: #444;
+}
+
+body.dark-mode .dropdown-menu li {
+    color: #ccc;
+}
+
+body.dark-mode .dropdown-menu li:hover {
+    background-color: #444;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    z-index: 10;
+    position: sticky;
+    top: 0;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+    padding: 10px 20px;
+}
+
+.navbar-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.navbar-logo:hover {
+    color: #0077cc;
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navbar-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+.navbar-links a:hover {
+    color: #0077cc;
+}
+
+/* Search Form */
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-form input {
+    padding: 8px 12px;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.search-form button {
+    padding: 8px 12px;
+    background-color: #0077cc;
+    border: none;
+    color: white;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-form button:hover {
+    background-color: #005fa3;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    list-style: none;
+    padding: 10px;
+    min-width: 150px;
+    z-index: 100;
+}
+
+.dropdown-menu li {
+    padding: 10px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-menu li:hover {
+    background-color: #f0f0f0;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+.dark-mode-toggle {
+    cursor: grab;
+    width: 50px;
+    height: 50px;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .dark-mode-toggle {
+    transform: rotate(180deg);
+}
+
+/* Mobile Menu */
+.menubar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 999;
+    overflow-y: auto;
+}
+
+.menubar.active {
+    display: block;
+}
+
+.menubar ul {
+    padding: 20px;
+    list-style: none;
+}
+
+.menubar li {
+    padding: 15px 0;
+    font-size: 18px;
+}
+
+.menubar a {
+    text-decoration: none;
+    color: white;
+}
+
+/* Show mobile menu only on smaller screens */
+.hamburger {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.hamburger .line {
+    width: 30px;
+    height: 4px;
+    background-color: #333;
+}
+
+.hamburger-active .line {
+    background-color: #fff;
+}
+
+/* Mobile dropdown menu */
+/* Hide dropdown by default on larger screens */
+.dropdown-menu {
+    display: none;
+}
+
+/* Only show dropdown on mobile */
+@media (max-width: 768px) {
+    .navbar-links {
+        display: none; /* Hide navbar links on mobile */
+    }
+
+    .hamburger {
+        display: block; /* Show hamburger icon on mobile */
+    }
+
+    .menubar.active {
+        display: block; /* Show the menu when active on mobile */
+    }
+
+    /* Show the dropdown only on small screens */
+    .dropdown-menu {
+        display: block; /* Make the dropdown show on mobile */
+        position: static; /* Position the menu correctly */
+    }
+}
+
+
+/* Dark Mode Button */
+#dark-mode-toggle {
+    position: fixed;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    background-color: #ffffff;
+    color: #333;
+    padding: 10px;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    font-size: 1.2rem;
+    z-index: 1000;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+body.dark-mode #dark-mode-toggle {
+    background-color: #333;
+    color: #f1f1f1;
+}
+
+/* Manhwa Grid */
+.manhwa-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.manhwa-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode .manhwa-card {
+    background: #333;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.manhwa-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+/* Footer */
+footer {
+    background: #ffffff;
+    color: #333;
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid #ddd;
+}
+
+body.dark-mode footer {
+    background: #222;
+    color: #ccc;
+    border-color: #444;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar-links {
+        display: none;
+        flex-direction: column;
+        background-color: #f8f9fa;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        text-align: center;
+        padding: 20px 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark-mode .navbar-links {
+        background-color: #1e1e1e;
+    }
+
+    .navbar-toggle {
+        display: block;
+    }
+
+    .manhwa-list {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    .manhwa-card img {
+        height: 250px;
+    }
+}
+
+
+
+

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Letter for You</title>
+    <style>
+        /* Background with floating hearts */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffe6e6;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 100, 150, 0.7);
+            transform: rotate(45deg);
+            animation: float 6s infinite;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 100, 150, 0.7);
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -25px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: -25px;
+            top: 0;
+        }
+
+        @keyframes float {
+            0% {
+                top: 100%;
+                left: 50%;
+                opacity: 1;
+            }
+            100% {
+                top: -10%;
+                left: calc(50% + 100px);
+                opacity: 0;
+            }
+        }
+
+        .popup {
+            position: relative;
+            background-color: rgb(133, 1, 111);
+            width: 90%;
+            max-width: 500px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .popup .heart-shape {
+            color: #ffffff;
+            font-family: 'Cursive', sans-serif;
+            font-size: 1.2rem;
+            line-height: 1.5rem;
+            width: 200px;
+            height: 200px;
+            shape-outside: circle();
+            margin: 0 auto;
+            clip-path: polygon(
+                50% 0%, 80% 0%, 100% 20%, 100% 50%, 50% 100%, 0% 50%, 0% 20%, 20% 0%
+            );
+        }
+
+        .btn {
+            display: inline-block;
+            background: #ff66b2;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #e64d99;
+        }
+
+        .hidden-heart {
+          animation:start ballin! 
+        }
+
+    </style>
+    </head>
+<body>
+    <!-- Floating hearts -->
+    <div class="heart" style="top: 10%; left: 20%; animation-duration: 5s;"></div>
+    <div class="heart" style="top: 20%; left: 60%; animation-duration: 7s;"></div>
+    <div class="heart" style="top: 50%; left: 40%; animation-duration: 6s;"></div>
+    <div class="heart" style="top: 80%; left: 80%; animation-duration: 8s;"></div>
+
+    <!-- Popup -->
+    <div class="popup">
+        <div class="heart-shape">
+            MY DEAR LOVE,<br>
+            You always ressure when im sad. <br>
+            You never failed to make me smile <br>
+            and your kindness warms my heart.<br>
+            You are my , my happiness, <br>
+            and my forever. ❤️<br>
+            <br>
+            With all my love,<br>
+            [Your Name]
+        </div>
+        <a href="{% url 'love2' %}" class="btn">Read More</a>
+    </div>
+</body>
+</html>

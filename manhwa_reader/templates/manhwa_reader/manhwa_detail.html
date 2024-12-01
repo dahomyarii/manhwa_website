@@ -1,0 +1,442 @@
+{% extends "manhwa_reader/base.html" %}
+{% load static %}
+
+{% block content %}
+    <style>
+    /* General container styling */
+    :root {
+        --bg-color-light: #f9f9f9;
+        --bg-color-dark: #1c1c1c;
+        --text-color-light: #333;
+        --text-color-dark: #eaeaea;
+        --description-color-light: #555;
+        --description-color-dark: #bbb;
+        --primary-color-light: #007bff;
+        --primary-color-dark: #5e81ac;
+        --hover-primary-color-light: #0056b3;
+        --hover-primary-color-dark: #4c6e8f;
+        --secondary-color-light: #28a745;
+        --secondary-color-dark: #a3be8c;
+        --hover-secondary-color-light: #218838;
+        --hover-secondary-color-dark: #8d9c73;
+    }
+
+    body {
+        background-color: var(--bg-color-light);
+        color: var(--text-color-light);
+        font-family: 'Roboto', sans-serif;
+        transition: background-color 0.3s, color 0.3s;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    body.dark-mode {
+        background-color: var(--bg-color-dark);
+        color: var(--text-color-dark);
+    }
+
+    .container {
+        display: flex;
+        flex-direction: row;
+        gap: 40px;
+        max-width: 1200px;
+        margin: auto;
+        padding: 40px;
+        background-color: var(--bg-color-light);
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s;
+        flex-grow: 1;
+    }
+
+    body.dark-mode .container {
+        background-color: var(--bg-color-dark);
+    }
+
+    .manhwa-image {
+        width: 40%; /* Make the image take 40% of the container */
+    }
+
+    .manhwa-image img {
+        max-width: 100%;
+        width: 100%;
+        border-radius: 10px;
+        object-fit: cover;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .manhwa-info {
+        flex: 1;
+        padding: 20px;
+        width: 60%; /* The content section takes 60% of the container */
+    }
+
+    .manhwa-info h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: var(--text-color-light);
+        transition: color 0.3s;
+    }
+
+    body.dark-mode .manhwa-info h1 {
+        color: var(--text-color-dark);
+    }
+
+    .manhwa-description {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        margin-bottom: 25px;
+        color: var(--description-color-light);
+        transition: color 0.3s;
+    }
+
+    body.dark-mode .manhwa-description {
+        color: var(--description-color-dark);
+    }
+
+    .btn-genre, .btn-chapter, .btn-favorite {
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-size: 1rem;
+        display: inline-block;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn-genre {
+        background-color: var(--primary-color-light);
+        color: #fff;
+    }
+
+    body.dark-mode .btn-genre {
+        background-color: var(--primary-color-dark);
+    }
+
+    .btn-genre:hover {
+        background-color: var(--hover-primary-color-light);
+        transform: translateY(-2px);
+    }
+
+    body.dark-mode .btn-genre:hover {
+        background-color: var(--hover-primary-color-dark);
+    }
+
+    .btn-chapter {
+        background-color: var(--secondary-color-light);
+        color: #fff;
+    }
+
+    body.dark-mode .btn-chapter {
+        background-color: var(--secondary-color-dark);
+    }
+
+    .btn-chapter:hover {
+        background-color: var(--hover-secondary-color-light);
+        transform: translateY(-2px);
+    }
+
+    body.dark-mode .btn-chapter:hover {
+        background-color: var(--hover-secondary-color-dark);
+    }
+
+    .btn-favorite {
+        background-color: #ffb84d;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .btn-favorite:hover {
+        background-color: #f57c00;
+        transform: translateY(-2px);
+    }
+
+    /* Genres styling */
+    .genres h2 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: var(--text-color-light);
+    }
+
+    body.dark-mode .genres h2 {
+        color: var(--text-color-dark);
+    }
+
+    .genre-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .chapters-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    /* "Show More" Button */
+    .show-more-btn {
+        display: block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: var(--primary-color-light);
+        color: white;
+        text-align: center;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1.1rem;
+        transition: background-color 0.3s ease;
+    }
+
+    body.dark-mode .show-more-btn {
+        background-color: var(--primary-color-dark);
+    }
+
+    .show-more-btn:hover {
+        background-color: var(--hover-primary-color-light);
+    }
+
+    body.dark-mode .show-more-btn:hover {
+        background-color: var(--hover-primary-color-dark);
+    }
+
+    .footer {
+        padding: 20px;
+        background-color: var(--bg-color-light);
+        text-align: center;
+        margin-top: auto;
+        width: 100%;
+        transition: background-color 0.3s;
+    }
+
+    body.dark-mode .footer {
+        background-color: var(--bg-color-dark);
+    }
+
+    /* Comments Section */
+    .comments-section {
+        margin-top: 40px;
+        border-top: 2px solid #ddd;
+        padding-top: 30px;
+    }
+
+    .comments-section h3 {
+        font-size: 1.8rem;
+        color: var(--text-color-light);
+    }
+
+    body.dark-mode .comments-section h3 {
+        color: var(--text-color-dark);
+    }
+
+    .comment {
+        padding: 10px;
+        margin-bottom: 20px;
+        background-color: var(--bg-color-light);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s;
+    }
+
+    body.dark-mode .comment {
+        background-color: #333;
+    }
+
+    .comment-author {
+        font-weight: bold;
+        color: var(--primary-color-light);
+    }
+
+    .comment-text {
+        font-size: 1rem;
+        color: var(--description-color-light);
+    }
+
+    .rating-section {
+        margin-top: 30px;
+        display: flex;
+        align-items: center;
+    }
+
+    .rating-stars {
+        font-size: 1.8rem;
+        color: #ffcc00;
+    }
+
+    .rating-stars span {
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    .rating-stars span:hover {
+        transform: scale(1.2);
+    }
+
+    .rating-average {
+        font-size: 1.5rem;
+        margin-left: 15px;
+        color: var(--text-color-light);
+    }
+
+    body.dark-mode .rating-average {
+        color: var(--text-color-dark);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .manhwa-image {
+            width: 100%; /* Full width on small screens */
+            text-align: center;
+        }
+
+        .manhwa-image img {
+            width: 100%;
+        }
+
+        .manhwa-info {
+            width: 100%;
+            padding: 10px;
+        }
+
+        .manhwa-info h1 {
+            font-size: 2rem;
+        }
+
+
+        .manhwa-description {
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .genres h2 {
+            font-size: 1.2rem;
+        }
+
+        .genre-buttons {
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-genre {
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+
+        .chapters-grid {
+            grid-template-columns: 1fr; /* Stack chapters vertically on small screens */
+            gap: 10px;
+        }
+
+        .show-more-btn {
+            font-size: 1rem;
+            padding: 8px 15px;
+        }
+
+        .footer {
+            font-size: 0.9rem;
+            padding: 15px;
+        }
+
+        /* Additional improvements */
+        .comments-section {
+            margin-top: 30px;
+            padding-top: 20px;
+        }
+
+        .comment {
+            margin-bottom: 15px;
+        }
+
+        .rating-section {
+            margin-top: 25px;
+        }
+    }
+    </style>
+
+<div class="container modern-layout">
+    <!-- Manhwa Image Section -->
+    <div class="manhwa-image">
+        <img src="{{ manhwa.cover_image.url }}" alt="{{ manhwa.title }}">
+    </div>
+
+    <!-- Manhwa Information Section -->
+    <div class="manhwa-info">
+        <h1>{{ manhwa.title }}</h1>
+        <p class="manhwa-description">{{ manhwa.description }}</p>
+        
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'toggle_favorite' manhwa.id %}" class="toggle-favorite">
+                {% if is_favorite %}
+                    <i class="fas fa-star favorite-icon"></i> Unfavorite
+                {% else %}
+                    <i class="far fa-star favorite-icon"></i> Favorite
+                {% endif %}
+            </a>
+        {% else %}
+            <p>You must be logged in to add to favorites.</p>
+        {% endif %}
+
+        <!-- Genres List -->
+        <div class="genres">
+            <h2>Genres:</h2>
+            <div class="genre-buttons">
+                {% for genre in manhwa.genres.all %}
+                    <a href="{% url 'genre_detail' genre.id %}" class="btn-genre">{{ genre.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Chapters Grid -->
+        <h2>Chapters:</h2>
+        <div class="chapters-grid" id="chapters-list">
+            {% for chapter in manhwa.chapters.all %}
+                <a href="{% url 'chapter_detail' manhwa.id chapter.id %}" class="btn-chapter">{{ chapter.title }}</a>
+
+            {% endfor %}
+        </div>
+
+        {% if manhwa.chapters.count > 10 %}
+            <button class="show-more-btn" id="show-more-btn">Show More</button>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Footer Section -->
+<div class="footer">
+    <p>&copy; 2024 Your Manhwa Website. All rights reserved.</p>
+</div>
+
+<script>
+    // Add click event listener to toggle favorite state
+    document.querySelectorAll('.toggle-favorite').forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent the default anchor behavior
+            const url = this.href;
+
+            // Send an AJAX request to toggle the favorite status
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const icon = this.querySelector('.favorite-icon');
+                    if (data.status === 'added') {
+                        icon.classList.remove('far');  // Remove empty star class
+                        icon.classList.add('fas');     // Add filled star class
+                        this.innerHTML = icon.outerHTML + ' Unfavorite'; // Update text
+                    } else if (data.status === 'removed') {
+                        icon.classList.remove('fas');  // Remove filled star class
+                        icon.classList.add('far');     // Add empty star class
+                        this.innerHTML = icon.outerHTML + ' Favorite'; // Update text
+                    }
+                });
+        });
+    });
+</script>
+{% endblock %}

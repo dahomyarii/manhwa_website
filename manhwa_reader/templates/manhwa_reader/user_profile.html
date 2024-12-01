@@ -1,0 +1,30 @@
+<!-- user_profile.html -->
+
+{% block content %}
+<h2>User Profile</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save changes</button>
+</form>
+
+<h3>Your Favorites</h3>
+<ul>
+    {% for manhwa in user_profile.favorites.all %}
+        <li>{{ manhwa.title }}</li>
+    {% empty %}
+        <li>No favorites yet.</li>
+    {% endfor %}
+</ul>
+
+<h3>Your Read History</h3>
+<ul>
+    {% for chapter in user_profile.read_history.all %}
+        <li>{{ chapter.title }} - {{ chapter.manhwa.title }}</li>
+    {% empty %}
+        <li>No read history.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

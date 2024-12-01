@@ -1,0 +1,18 @@
+{% extends "manhwa_reader/base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1>Genres</h1>
+        <ul class="genre-list">
+            {% for genre in genres %}
+            <li>
+                <a href="{% url 'genre_detail' genre.id %}">{{ genre.name }}</a>
+                <p>{{ genre.description }}</p>
+            </li>
+        {% empty %}
+            <p>No genres available at the moment.</p>
+        {% endfor %}
+        
+        </ul>
+    </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "manhwa_reader/base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="content-wrapper">
+    <h1 class="text-3xl font-bold dark:text-white mb-4">Your Favorite Manhwas</h1>
+    <div class="manhwa-list">
+        {% if user.userprofile.favorites.all %}
+        {% for favorite in user.userprofile.favorites.all %}
+        <div class="manhwa-card bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
+            <a href="{% url 'manhwa_detail' favorite.id %}">
+                <img src="{{ favorite.cover_image.url }}" alt="{{ favorite.title }}" class="w-full h-40 object-cover">
+                <div class="p-4">
+                    <h3 class="font-semibold dark:text-white">{{ favorite.title }}</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">{{ favorite.description }}</p>
+                </div>
+            </a>
+            <a href="{% url 'remove_favorite' favorite.id %}"
+                class="text-red-500 dark:text-red-400 hover:underline block text-center mt-2">
+                Remove from Favorites
+            </a>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p class="text-gray-700 dark:text-gray-300">You haven't favorited any manhwas yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

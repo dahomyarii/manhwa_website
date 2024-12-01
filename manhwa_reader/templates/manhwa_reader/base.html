@@ -1,0 +1,185 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Manhwa Website</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  </head>
+  <body>
+    <!-- Dark Mode Toggle -->
+    <div class="sidebar">
+        <img id="dark-mode-toggle" class="dark-mode-toggle" src="{% static 'images/images.png' %}" alt="Dark Mode">
+    </div>
+
+    <nav>
+      <div class="logo">
+        <h1>manga</h1>
+      </div>
+      <ul>
+        <li><a href="{% url 'manhwa_list' %}">Home</a></li>
+        <li><a href="{% url 'genre_list' %}">Genres</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'favorites' %}">favorites</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" id="dropdown-toggle">
+            <img src="{{ user.profile.avatar.url|default:'#' }}" alt="User Avatar" class="user-avatar">
+          </a>
+          <ul class="dropdown-menu" id="dropdown-menu">
+            <li><a href="{% url 'favorites' %}">Favorites</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+          </ul>
+        </li>
+        {% else %}
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'register' %}">Register</a></li>
+        {% endif %}
+        {% if page == "home" %}
+        <li>
+          <form method="get" action="{% url 'manhwa_list' %}" class="search-form">
+            <input type="text" name="query" placeholder="Search...">
+            <button type="submit">Search</button>
+          </form>
+        </li>
+        {% endif %}
+      </ul>
+      <div class="hamburger" id="hamburger-toggle">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </nav>
+    <div class="menubar" id="menubar">
+      <ul>
+        <li><a href="{% url 'manhwa_list' %}">Home</a></li>
+        {% if user.is_authenticated %}
+        
+        <ul class="dropdown-menu" id="dropdown-menu">
+            <li><a href="{% url 'favorites' %}">Favorites</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </li>
+    {% else %}
+    <li><a href="{% url 'login' %}">Login</a></li>
+    <li><a href="{% url 'register' %}">Register</a></li>
+    <form method="get" action="{% url 'manhwa_list' %}" class="search-form">
+        <input type="text" name="query" placeholder="Search...">
+        <button type="submit">Search</button>
+      </form>
+        {% endif %}
+      </ul>
+    </div>
+
+    <!-- Main content -->
+    <div class="container">
+        <div class="content-wrapper">
+            {% block content %}{% endblock %}
+        </div>
+
+
+    </div>
+
+    <!-- JavaScript for Dark Mode, Navbar, Hamburger Menu -->
+    <script>
+        // Toggle dark mode
+        const toggleDarkMode = () => {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                localStorage.removeItem('darkMode');
+            }
+        };
+
+        window.onload = () => {
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+            }
+        };
+
+        // Dropdown functionality
+        document.getElementById('dark-mode-toggle').addEventListener('click', toggleDarkMode);
+        const dropdownToggle = document.getElementById('dropdown-toggle');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        dropdownToggle.addEventListener('click', () => dropdownMenu.classList.toggle('show'));
+    </script>
+    <script>
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+
+    let isDragging = false;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    // Function to handle movement (common for both mouse and touch)
+    function moveElement(x, y) {
+        const maxX = window.innerWidth - darkModeToggle.offsetWidth;
+        const maxY = window.innerHeight - darkModeToggle.offsetHeight;
+
+        darkModeToggle.style.left = Math.min(Math.max(0, x), maxX) + 'px';
+        darkModeToggle.style.top = Math.min(Math.max(0, y), maxY) + 'px';
+    }
+
+    // Mouse Events
+    darkModeToggle.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        offsetX = e.clientX - darkModeToggle.getBoundingClientRect().left;
+        offsetY = e.clientY - darkModeToggle.getBoundingClientRect().top;
+        darkModeToggle.style.cursor = 'grabbing';
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+            moveElement(e.clientX - offsetX, e.clientY - offsetY);
+        }
+    });
+
+    window.addEventListener('mouseup', () => {
+        if (isDragging) {
+            isDragging = false;
+            darkModeToggle.style.cursor = 'grab';
+        }
+    });
+
+    // Touch Events
+    darkModeToggle.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        const touch = e.touches[0];
+        offsetX = touch.clientX - darkModeToggle.getBoundingClientRect().left;
+        offsetY = touch.clientY - darkModeToggle.getBoundingClientRect().top;
+    });
+
+    window.addEventListener('touchmove', (e) => {
+        if (isDragging) {
+            const touch = e.touches[0];
+            moveElement(touch.clientX - offsetX, touch.clientY - offsetY);
+        }
+    });
+
+    window.addEventListener('touchend', () => {
+        if (isDragging) {
+            isDragging = false;
+        }
+    });
+</script>
+
+  </body>
+</html>
+    <!-- JavaScript for Dark Mode, Navbar, Hamburger Menu -->
+    <script>
+        // Hamburger Menu Toggle
+        const mobileNav = document.querySelector(".hamburger");
+        const navbar = document.querySelector(".menubar");
+      
+        const toggleNav = () => {
+          navbar.classList.toggle("active");
+          mobileNav.classList.toggle("hamburger-active");
+        };
+      
+        mobileNav.addEventListener("click", toggleNav);
+    </script>
+

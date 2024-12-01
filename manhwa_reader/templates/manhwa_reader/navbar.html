@@ -1,0 +1,51 @@
+<nav class="navbar">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <div class="navbar-container">
+        <!-- Logo or Home Link -->
+        <a href="{% url 'manhwa_list' %}" class="navbar-logo">ManhwaSite</a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="navbar-toggle" id="navbar-toggle">
+            ☰ Menu
+        </button>
+
+        <!-- Navigation Links -->
+        <ul class="navbar-links" id="navbar-menu">
+            {% if user.is_authenticated %}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">
+                        <img src="{{ user.profile.avatar.url|default:'#' }}" alt="User Avatar" class="user-avatar">
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'favorites' %}">Favorites</a></li>
+                        <li><a href="{% url 'logout' %}">Logout</a></li>
+                    </ul>
+                </li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+            {% endif %}
+            {% if page|default:'' == "home" %}
+                <li>
+                    <form method="get" action="{% url 'manhwa_list' %}" class="search-form">
+                        <input type="text" name="query" placeholder="Search...">
+                        <button type="submit">Search</button>
+                    </form>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+<script>
+    const toggleButton = document.getElementById('navbar-toggle');
+    const navbarMenu = document.getElementById('navbar-menu');
+
+    toggleButton.addEventListener('click', () => {
+        navbarMenu.classList.toggle('active');
+    });
+</script>
+
+<style>
+</style>

@@ -1,0 +1,32 @@
+{% extends "manhwa_reader/base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="content-wrapper">
+            <h1>Latest Manhwa</h1>
+            <div class="manhwa-list">
+                {% for manhwa in manhwas %}
+                    <div class="manhwa-card">
+                        <a href="{% url 'manhwa_detail' manhwa.id %}">
+                            <img src="{{ manhwa.cover_image.url }}" alt="{{ manhwa.title }}">
+                        </a>
+                        <h3>{{ manhwa.title }}</h3>
+                        <p>{{ manhwa.description|truncatewords:20 }}</p>
+                    </div>
+                {% empty %}
+                    <p>No manhwa available at the moment.</p>
+                {% endfor %}
+            </div>
+
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                {% endif %}
+                <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

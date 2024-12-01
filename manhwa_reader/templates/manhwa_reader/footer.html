@@ -1,0 +1,36 @@
+<footer>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <p>© 2024 My Manhwa Website. Made with sexy love for abrielle only.</p>
+    <!-- <a href="https://github.com/yourproject">View Source Code</a> -->
+</footer>
+
+<style>
+    /* Ensure the body and html take the full height */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+/* Flexbox wrapper to push footer to the bottom */
+.content-wrapper {
+    min-height: calc(100vh - 50px); /* Adjust 50px to match footer height */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Footer styles */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #f8f9fa; /* Adjust background color as needed */
+    color: #333; /* Adjust text color */
+    font-size: 14px;
+    border-top: 1px solid #ddd;
+    position: sticky; /* Sticky to bottom if page content is small */
+    bottom: 0;
+    width: 100%;
+}
+
+</style>

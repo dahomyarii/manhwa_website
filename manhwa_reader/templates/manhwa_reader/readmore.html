@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Letter Continued</title>
+    <style>
+
+        /* Background with floating hearts */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffe6e6;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 100, 150, 0.7);
+            transform: rotate(45deg);
+            animation: float 6s infinite;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 100, 150, 0.7);
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -25px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: -25px;
+            top: 0;
+        }
+
+        @keyframes float {
+            0% {
+                top: 100%;
+                left: 50%;
+                opacity: 1;
+            }
+            100% {
+                top: -10%;
+                left: calc(50% + 100px);
+                opacity: 0;
+            }
+        }
+
+        .popup {
+            position: relative;
+            background-color: rgb(133, 1, 111);
+            width: 90%;
+            max-width: 500px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .popup .heart-shape {
+            color: #ffffff;
+            font-family: 'Cursive', sans-serif;
+            font-size: 1.2rem;
+            line-height: 1.5rem;
+            width: 200px;
+            height: 200px;
+            shape-outside: circle();
+            margin: 0 auto;
+            clip-path: polygon(
+                50% 0%, 80% 0%, 100% 20%, 100% 50%, 50% 100%, 0% 50%, 0% 20%, 20% 0%
+            );
+        }
+
+        .btn {
+            display: inline-block;
+            background: #ff66b2;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #e64d99;
+        }
+
+        .hidden-heart {
+          animation:start ballin! 
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ffcccc, #ffe6e6);
+        }
+
+        .read-more-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .read-more-container h1 {
+            font-family: 'Cursive', sans-serif;
+            color: #ff66b2;
+        }
+
+        .read-more-container p {
+            font-family: 'Cursive', sans-serif;
+            font-size: 1.2rem;
+            color: #333;
+            line-height: 1.8rem;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #ff66b2;
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #e64d99;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="heart" style="top: 10%; left: 20%; animation-duration: 5s;"></div>
+    <div class="heart" style="top: 20%; left: 60%; animation-duration: 7s;"></div>
+    <div class="heart" style="top: 50%; left: 40%; animation-duration: 6s;"></div>
+    <div class="heart" style="top: 80%; left: 80%; animation-duration: 8s;"></div>
+    <div class="heart" style="top: 10%; left: 20%; animation-duration: 5s;"></div>
+    <div class="heart" style="top: 20%; left: 60%; animation-duration: 7s;"></div>
+    <div class="heart" style="top: 50%; left: 40%; animation-duration: 6s;"></div>
+    <div class="heart" style="top: 80%; left: 80%; animation-duration: 8s;"></div>
+    <div class="read-more-container">
+        <h1>THIS WEBSITE WAS MADE FOR MY ONLY DEAR LOVE ABRIELLE</h1>
+        <p>
+            every day with you is a treasure. You make my heart race with happiness and fill my day with love. <br>
+            i dream of a future where every sunrise starts with your smile and every sunset ends with your kiss.<br>
+            you are my happiness, god's gift, my love, and my greatest blessing.<br>
+            please accept accpet my gift for you. i dont want anything else than leaving a smile on your gorgeous face, i will forever ressure you, be by your side, support you and be yours forever<br>
+            <br>
+            your sweet little baby, <br>
+            dahomy
+        </p>
+        <a href="{% url 'manhwa_list' %}" class="back-btn">Back to Main Page</a>
+    </div>
+</body>
+</html>

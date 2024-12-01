@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ genre.name }}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Genre: {{ genre.name }}</h1>
+    <p>{{ genre.description }}</p>
+    <h2>Manhwas in this Genre</h2>
+    <ul class="manhwa-list">
+        {% for manhwa in manhwas %}
+            <li>
+                <a href="{% url 'manhwa_detail' manhwa.id %}">
+                    <img src="{{ manhwa.cover_image.url }}" alt="{{ manhwa.title }}">
+                    <h3>{{ manhwa.title }}</h3>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

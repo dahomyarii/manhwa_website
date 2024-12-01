@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ chapter.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- Include LazySizes for lazy loading -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
+
+    <style>
+        /* Navigation Buttons */
+        #navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .btn {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .btn-prev {
+            background-color: #2ecc71;
+        }
+        .btn-prev:hover {
+            background-color: #27ae60;
+        }
+        .btn-next {
+            background-color: #e74c3c;
+        }
+        .btn-next:hover {
+            background-color: #c0392b;
+        }
+
+        /* Full-Screen Button */
+        #fullscreen-btn {
+            margin-top: 20px;
+            background-color: #f39c12;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        #fullscreen-btn:hover {
+            background-color: #e67e22;
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'manhwa_detail' chapter.manhwa.id %}" class="btn">Back to Manhwa</a>
+
+    <div class="container">
+        <h1>Chapter: {{ chapter.title }}</h1>
+
+        <!-- Navigation Buttons -->
+        <div id="navigation-buttons">
+            {% if previous_chapter %}
+                <a href="{% url 'chapter_detail' manhwa.id previous_chapter.id %}" class="btn btn-prev">Previous Chapter</a>
+            {% endif %}
+            {% if next_chapter %}
+                <a href="{% url 'chapter_detail' manhwa.id next_chapter.id %}" class="btn btn-next">Next Chapter</a>
+            {% endif %}
+        </div>
+
+        <!-- Full-Screen Button -->
+        <button id="fullscreen-btn" class="btn">Full-Screen</button>
+
+        <!-- Chapter Images -->
+        <div id="chapter-viewer">
+            <div class="chapter-images">
+                {% for image in images %}
+                    <img 
+                        class="lazyload" 
+                        data-src="{{ image.image.url }}" 
+                        alt="Page {{ forloop.counter }}" 
+                        style="max-width: 100%; margin-bottom: 20px;">
+                {% empty %}
+                    <p>No images available for this chapter yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Full-Screen Toggle
+        const fullScreenBtn = document.getElementById('fullscreen-btn');
+        const chapterViewer = document.getElementById('chapter-viewer');
+
+        fullScreenBtn.addEventListener('click', () => {
+            if (!document.fullscreenElement) {
+                chapterViewer.requestFullscreen().catch((err) => {
+                    console.error(`Error entering full-screen mode: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        });
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowRight') {
+                const nextBtn = document.querySelector('.btn-next');
+                if (nextBtn) nextBtn.click();
+            } else if (event.key === 'ArrowLeft') {
+                const prevBtn = document.querySelector('.btn-prev');
+                if (prevBtn) prevBtn.click();
+            }
+        });
+    </script>
+</body>
+</html>
