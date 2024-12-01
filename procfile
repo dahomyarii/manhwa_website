@@ -1,1 +1,2 @@
 web: gunicorn manhwa_website.wsgi
+release: python manage.py collectstatic --no-input
