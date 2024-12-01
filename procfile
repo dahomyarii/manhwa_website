@@ -1,0 +1,1 @@
+web: gunicorn manhwa_website.wsgi
