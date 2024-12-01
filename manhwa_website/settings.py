@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+load_dotenv()
+
+# Now you can use os.getenv() to access your environment variables as above.
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,15 +25,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-wxbftqi$@d&gjp^4-xh4+^ba4^^4$a6-3#iu957tf-1k)$&6o^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['*.railway.app', 'localhost', '127.0.0.1']
 
 
 
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+DEBUG = os.getenv('DEBUG', 'False') == 'True'  # Default to False
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+STATIC_ROOT = os.getenv('STATIC_ROOT', BASE_DIR / 'staticfiles')
+MEDIA_ROOT = os.getenv('MEDIA_ROOT', BASE_DIR / 'media')
 # Application definition
 
 INSTALLED_APPS = [
@@ -130,10 +135,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # URL that serves media files (e.g., uploaded images)
 # Media settings for file handling
 # Static files (CSS, JavaScript, etc.)
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]  # Ensure this points to your static directory
-STATIC_ROOT = BASE_DIR / "staticfiles"   # Directory where static files will be collected (for production)
-
-# Add this for media files (if you're using them)
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
