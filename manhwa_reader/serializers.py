@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Manhwa, Chapter, ChapterPage
+from .models import *
 
 class ChapterPageSerializer(serializers.ModelSerializer):
     class Meta:

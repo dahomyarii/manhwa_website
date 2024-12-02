@@ -37,8 +37,12 @@ class ChapterPage(models.Model):
     def __str__(self):
         return f"Page {self.id}"
 
+class ChapterImage(models.Model):
+    chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE, related_name='chapter_images')  # Unique related_name
+    image = models.ImageField(upload_to='manhwa_images/')
+
 class Image(models.Model):
-    chapter = models.ForeignKey(Chapter, related_name='images', on_delete=models.CASCADE)
+    chapter = models.ForeignKey(Chapter, related_name='images', on_delete=models.CASCADE)  # Unique related_name
     image = models.ImageField(upload_to='chapter_images/')
     created_at = models.DateTimeField(auto_now_add=True)
 
