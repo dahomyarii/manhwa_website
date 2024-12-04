@@ -129,19 +129,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Media settings for file handling
 # Static files (CSS, JavaScript, etc.)
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]  # Ensure this points to your static directory
-STATIC_ROOT = BASE_DIR / "staticfiles"   # Directory where static files will be collected (for production)
 
+# Path where static files are collected
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# For serving static files in development (if needed):
+# This is only for local development. In production, static files should be served by the web server (like Nginx, not Django).
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 # Add this for media files (if you're using them)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-
-ASGI_APPLICATION = 'manhwa_website.asgi.application'
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            'hosts': [('127.0.0.1', 6379)],  # Ensure Redis is running
-        },
-    },
-}
