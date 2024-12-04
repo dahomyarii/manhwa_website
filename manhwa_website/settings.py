@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'manhwa_reader',
-    'rest_framework',
 
 ]
 
