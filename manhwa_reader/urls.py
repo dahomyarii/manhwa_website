@@ -18,8 +18,8 @@ urlpatterns = [
     path('manhwa/<int:manhwa_id>/', views.manhwa_detail, name='manhwa_detail'),
     
     # Create a superuser django in render hosting
-    path('create-superuser/', create_superuser_view),
-    
+    path('create-superuser/', create_superuser),
+
     # Chapter detail page with both manhwa_id and chapter_id
     path('manhwa/<int:manhwa_id>/chapter/<int:chapter_id>/', views.chapter_detail, name='chapter_detail'),
     

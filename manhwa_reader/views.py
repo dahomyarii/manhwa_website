@@ -15,12 +15,14 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-def create_superuser_view(request):
-    try:
-        call_command('createsuperuser', interactive=False, username='admin', email='admin@example.com', password='yourpassword')
-        return HttpResponse("Superuser created successfully!")
-    except Exception as e:
-        return HttpResponse(f"Error: {str(e)}")
+def create_superuser(request):
+    # Create superuser (only once, so make sure to remove this after)
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser('admin', 'admin@example.com', 'AbrielleForever')
+        return HttpResponse("Superuser created successfully.")
+    return HttpResponse("Superuser already exists.")
+
+
     
 
 # User UserProfile view
