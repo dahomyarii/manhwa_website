@@ -1,19 +1,27 @@
-from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
 from .forms import *
 from .serializers import ManhwaSerializer, ChapterSerializer
-from rest_framework import viewsets
 from .utils import convert_pdf_to_images
+from django.core.management import call_command
 from django.core.paginator import Paginator
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
-import os 
+from django.shortcuts import render, get_object_or_404, redirect
+from rest_framework import viewsets
 import logging
 
 logger = logging.getLogger(__name__)
+
+def create_superuser_view(request):
+    try:
+        call_command('createsuperuser', interactive=False, username='admin', email='admin@example.com', password='yourpassword')
+        return HttpResponse("Superuser created successfully!")
+    except Exception as e:
+        return HttpResponse(f"Error: {str(e)}")
+    
 
 # User UserProfile view
 def user_profile_view(request, username):
